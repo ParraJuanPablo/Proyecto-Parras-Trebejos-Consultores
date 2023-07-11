@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import logo from "../../img/parra-y-trebejos-logo.png";
-import "../../styles/component/navbar.css";
+import "../../styles/component/navbarHome.css";
 
-export const Navbar = () => {
+export const NavbarHome = () => {
 	return (
 	<nav className="navbar navbar-expand-lg bg-body-tertiary">
 		<div id="navbar" className="container-fluid d-flex justify-content-between">

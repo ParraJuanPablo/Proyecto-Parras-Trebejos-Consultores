@@ -1,0 +1,19 @@
+#navbar {
+    padding: 10px 40px 0px 40px;
+}
+
+li {
+    font-size: 25px;
+    padding: 0px 10px 0px 10px;
+}
+a {
+    color: #999999;
+}
+
+a:hover {
+    color: #6BC200;
+}
+
+a:active {
+    color: #407000;
+}

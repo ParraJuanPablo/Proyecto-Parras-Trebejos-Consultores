@@ -1,0 +1,8 @@
+
+#dropdownMenuLink {
+    font-size: 20px;
+}
+
+#dropdownMenuLink::after {
+    content: none;
+}

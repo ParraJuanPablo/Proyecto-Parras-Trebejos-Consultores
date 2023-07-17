@@ -20,7 +20,7 @@ export const NavbarHome = () => {
 					<ul className="navbar-nav me-auto mb-2 mb-lg-0">
 						<li className="nav-item">
 							<Link to="/contact">
-								<i class="fa-solid fa-comment-dots"></i>
+								<i className="fa-solid fa-comment-dots"></i>
 							</Link>
 						</li>
 						<li className="nav-item">

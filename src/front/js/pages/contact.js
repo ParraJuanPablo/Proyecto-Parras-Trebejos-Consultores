@@ -7,29 +7,29 @@ export const Contact = () => {
 
 	return (
         <section className="mt-5">
-            <div class="mask d-flex align-items-center gradient-custom-3">
-                <div class="container">
-                    <div class="row d-flex justify-content-center align-items-center">
-                        <div class="col-12 col-md-9 col-lg-7 col-xl-6">
-                            <div class="card">
-                                <div class="card-body p-5">
-                                    <h2 class="text-uppercase text-center mb-5">Contactanos</h2>
+            <div className="mask d-flex align-items-center gradient-custom-3">
+                <div className="container">
+                    <div className="row d-flex justify-content-center align-items-center">
+                        <div className="col-12 col-md-9 col-lg-7 col-xl-6">
+                            <div className="card">
+                                <div className="card-body p-5">
+                                    <h2 className="text-uppercase text-center mb-5">Contactanos</h2>
                                     <form>
 
-                                        <div class="form-outline mb-4">
-                                            <input type="text" id="contact-name" class="form-control form-control-lg" placeholder="Tu Nombre"/>
+                                        <div className="form-outline mb-4">
+                                            <input type="text" id="contact-name" className="form-control form-control-lg" placeholder="Tu Nombre"/>
                                         </div>
 
-                                        <div class="form-outline mb-4">
-                                            <input type="email" id="contact-email" class="form-control form-control-lg" placeholder="Tu Email"/>
+                                        <div className="form-outline mb-4">
+                                            <input type="email" id="contact-email" className="form-control form-control-lg" placeholder="Tu Email"/>
                                         </div>
 
-                                        <div class="form-outline mb-4">
-                                            <textarea id="contact-message" class="form-control form-control-lg" aria-label="With textarea" placeholder="Escribe tu Mensaje."></textarea>
+                                        <div className="form-outline mb-4">
+                                            <textarea id="contact-message" className="form-control form-control-lg" aria-label="With textarea" placeholder="Escribe tu Mensaje."></textarea>
                                         </div>
 
-                                        <div class="d-flex justify-content-center">
-                                            <button type="button" class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">
+                                        <div className="d-flex justify-content-center">
+                                            <button type="button" className="btn btn-success btn-block btn-lg gradient-custom-4 text-body">
                                                 Enviar
                                             </button>
                                         </div>

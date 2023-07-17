@@ -8,8 +8,11 @@ import { Contact } from "./pages/contact";
 import { About } from "./pages/about";
 import { Sign } from "./pages/sign";
 
-import { PerfilAsesor } from "./pages/perfilAsesor";
 import { PerfilPostulante } from "./pages/perfilPostulante";
+
+import { BlogPostulante } from "./pages/blogPostulante";
+import { BlogAsesor } from "./pages/blogAsesor";
+import { BlogPerfil } from "./pages/blogPerfil";
 
 import { Demo } from "./pages/demo";
 import { Single } from "./pages/single";
@@ -36,8 +39,10 @@ const Layout = () => {
                         <Route element={<Contact />} path="/contact" />
                         <Route element={<About />} path="/about" />
                         <Route element={<Sign />} path="/sign" />
-                        <Route element={<PerfilAsesor />} path="/perfil/asesor" />
                         <Route element={<PerfilPostulante />} path="/perfil/postulante" />
+                        <Route element={<BlogPostulante />} path="/blog/postulante" />
+                        <Route element={<BlogAsesor />} path="/blog/asesor" />
+                        <Route element={<BlogPerfil />} path="/blog/perfil" />
                         <Route element={<Demo />} path="/demo" />
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<h1>Not found!</h1>} />

@@ -32,7 +32,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 		
 				try {
 				  const response = await fetch(
-					`${process.env.BACKEND_URL}/po`,
+					`${process.env.BACKEND_URL}/postulante`,
 					opts
 				  );
 		
@@ -43,6 +43,212 @@ const getState = ({ getStore, getActions, setStore }) => {
 					  user: data
 					});
 				  }
+				} catch (error) {
+				  console.log(error);
+				  return false;
+				}
+			},
+
+			signupPostulante: async (data) => {
+				console.log(data);
+				const opts = {
+				  method: "POST",
+				  headers: {
+					"Content-Type": "application/json",
+				  },
+				  body: JSON.stringify(data),
+				};
+		
+				try {
+				  const response = await fetch(
+					`${process.env.BACKEND_URL}/postulante`,
+					opts
+				  );
+		
+				  if (!response.ok) {
+					console.log(response);
+					return false;
+				  }
+				  const data = await response.json();
+				  console.log(data);
+				  return true;
+				} catch (error) {
+				  console.log(error);
+				  return false;
+				}
+			},
+
+			editarPostulante: async (data) => {
+				let store = getStore()
+				const opts = {
+				  method: "PUT",
+				  headers: {
+					"Content-Type": "application/json",
+					"Authorization": `Bearer ${store.token}`
+				  },
+				  body: JSON.stringify(data)
+				};
+				
+				try {
+				  const response = await fetch(
+					`${process.env.BACKEND_URL}/postulante`,
+					opts
+				  );
+		
+				  if (!response.ok) {
+					console.log(response);
+					return false;
+				  }
+				  const data = await response.json();
+				  console.log(data);
+				  return true;
+				} catch (error) {
+				  console.log(error);
+				  return false;
+				}
+			},
+
+			  subirCV: async (data) => {
+				let store = getStore()
+				const opts = {
+				  method: "PUT",
+				  headers: {
+					"Content-Type": "application/json",
+					"Authorization": `Bearer ${store.token}`
+				  },
+				  body: JSON.stringify(data)
+				};
+				
+				try {
+				  const response = await fetch(
+					`${process.env.BACKEND_URL}/cv`,
+					opts
+				  );
+		
+				  if (!response.ok) {
+					console.log(response);
+					return false;
+				  }
+				  const data = await response.json();
+				  console.log(data);
+				  return true;
+				} catch (error) {
+				  console.log(error);
+				  return false;
+				}
+			},
+
+			leerAsesor: async () => {
+				let store = getStore()
+				const opts = {
+				  method: "GET",
+				  headers: {
+					"Content-Type": "application/json",
+					"Authorization": `Bearer ${store.token}`
+				  }
+				};
+		
+				try {
+				  const response = await fetch(
+					`${process.env.BACKEND_URL}/asesor`,
+					opts
+				  );
+		
+				  if (response.ok) {
+					console.log(response);
+					const data = await response.json();
+					setStore({
+					  user: data
+					});
+				  }
+				} catch (error) {
+				  console.log(error);
+				  return false;
+				}
+			},
+
+			leerTip: async () => {
+				let store = getStore()
+				const opts = {
+				  method: "GET",
+				  headers: {
+					"Content-Type": "application/json",
+					"Authorization": `Bearer ${store.token}`
+				  }
+				};
+		
+				try {
+				  const response = await fetch(
+					`${process.env.BACKEND_URL}/blog`,
+					opts
+				  );
+		
+				  if (response.ok) {
+					console.log(response);
+					const data = await response.json();
+					setStore({
+					  user: data
+					});
+				  }
+				} catch (error) {
+				  console.log(error);
+				  return false;
+				}
+			},
+
+			signupTip: async (data) => {
+				console.log(data);
+				const opts = {
+				  method: "POST",
+				  headers: {
+					"Content-Type": "application/json",
+				  },
+				  body: JSON.stringify(data),
+				};
+		
+				try {
+				  const response = await fetch(
+					`${process.env.BACKEND_URL}/blog`,
+					opts
+				  );
+		
+				  if (!response.ok) {
+					console.log(response);
+					return false;
+				  }
+				  const data = await response.json();
+				  console.log(data);
+				  return true;
+				} catch (error) {
+				  console.log(error);
+				  return false;
+				}
+			},
+
+			editarTip: async (data) => {
+				let store = getStore()
+				const opts = {
+				  method: "PUT",
+				  headers: {
+					"Content-Type": "application/json",
+					"Authorization": `Bearer ${store.token}`
+				  },
+				  body: JSON.stringify(data)
+				};
+				
+				try {
+				  const response = await fetch(
+					`${process.env.BACKEND_URL}/blog`,
+					opts
+				  );
+		
+				  if (!response.ok) {
+					console.log(response);
+					return false;
+				  }
+				  const data = await response.json();
+				  console.log(data);
+				  return true;
 				} catch (error) {
 				  console.log(error);
 				  return false;

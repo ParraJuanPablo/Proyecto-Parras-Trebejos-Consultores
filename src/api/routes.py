@@ -55,7 +55,7 @@ def editar_postulante():
         except Exception as error:
             return jsonify({"msg": f"{error.args[0]}"}), 400
         
-@api.route('/postulante', methods=['PUT'])
+@api.route('/cv', methods=['PUT'])
 @jwt_required()
 def subir_cv():
     postulante = Postulante.query.get(get_jwt_identity())

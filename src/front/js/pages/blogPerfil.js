@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { Context } from "../store/appContext";
 
+
 import { CartaPerfil } from "../component/cartaPerfil";
 
 export const BlogPerfil = () => {

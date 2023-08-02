@@ -1,6 +1,8 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
+			token: sessionStorage.getItem("token") || null,
+			user: {},	  
 			message: null,
 			demo: [
 				{
@@ -17,10 +19,39 @@ const getState = ({ getStore, getActions, setStore }) => {
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
+
+			leerPostulante: async () => {
+				let store = getStore()
+				const opts = {
+				  method: "GET",
+				  headers: {
+					"Content-Type": "application/json",
+					"Authorization": `Bearer ${store.token}`
+				  }
+				};
+		
+				try {
+				  const response = await fetch(
+					`${process.env.BACKEND_URL}/po`,
+					opts
+				  );
+		
+				  if (response.ok) {
+					console.log(response);
+					const data = await response.json();
+					setStore({
+					  user: data
+					});
+				  }
+				} catch (error) {
+				  console.log(error);
+				  return false;
+				}
+			  },
+
 			exampleFunction: () => {
 				getActions().changeColor(0, "green");
 			},
-
 			getMessage: async () => {
 				try{
 					// fetching data from the backend

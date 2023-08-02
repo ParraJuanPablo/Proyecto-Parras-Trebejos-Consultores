@@ -1,11 +1,37 @@
-import React, { useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 import "../../styles/pages/sign.css";
 
 //import { Carousel } from "../component/carousel.js";
 
 export const Sign = () => {
-	const { store, actions } = useContext(Context);
+    const { store, actions } = useContext(Context);
+    const navigate = useNavigate();
+
+    const [nombrepr, setNombrepr] = useState("");
+    const [correopr, setCorreopr] = useState("");
+    const [contraseñapr, setContraseñapr] = useState("");
+    const [rcontraseñapr, setRContraseñapr] = useState("");
+
+
+    const handleSubmitpr = async (event) => {
+      event.preventDefault();
+      const response1 = await actions.signup({
+        nombre: nombrepr,
+        correo: correopr,
+        contraseña: contraseñapr
+      });
+      if (response1) {
+        navigate("/success");
+      } else {
+        alert("No se pudo iniciar sesión");
+      }
+    };
+  
+    useEffect(() => {
+      if (store.token && store.token != null) navigate("/");
+    }, [store.token]);
 
 	return (
     <section className="mt-5">
@@ -20,9 +46,6 @@ export const Sign = () => {
                                 </li>
                                 <li className="nav-item" role="presentation">
                                     <button className="nav-link" id="pills-asesor-tab" data-bs-toggle="pill" data-bs-target="#pills-asesor" type="button" role="tab" aria-controls="pills-asesor" aria-selected="false">Asesor</button>
-                                </li>
-                                <li className="nav-item" role="presentation">
-                                    <button className="nav-link" id="pills-empresa-tab" data-bs-toggle="pill" data-bs-target="#pills-empresa" type="button" role="tab" aria-controls="pills-empresa" aria-selected="false">Empresa</button>
                                 </li>
                             </ul>
                             <div className="tab-content" id="pills-tabContent-users">
@@ -90,43 +113,11 @@ export const Sign = () => {
                                 <div className="tab-pane fade" id="pills-asesor" role="tabpanel" aria-labelledby="pills-asesor-tab">
                                     <ul className="nav nav-pills" id="pills-tab-tipo-asesor" role="tablist">
                                         <li className="nav-item" role="presentation">
-                                            <button className="nav-link active" id="pills-registrarme-tab-asesor" data-bs-toggle="pill" data-bs-target="#pills-registrarme-asesor" type="button" role="tab" aria-controls="pills-registrarme" aria-selected="true">Registrarme</button>
-                                        </li>
-                                        <li className="nav-item" role="presentation">
-                                            <button className="nav-link" id="pills-acceder-tab-asesor" data-bs-toggle="pill" data-bs-target="#pills-acceder-asesor" type="button" role="tab" aria-controls="pills-acceder" aria-selected="false">Acceder</button>
+                                            <button className="nav-link active" id="pills-acceder-tab-asesor" data-bs-toggle="pill" data-bs-target="#pills-acceder-asesor" type="button" role="tab" aria-controls="pills-acceder" aria-selected="false">Acceder</button>
                                         </li>
                                     </ul>
                                     <div className="tab-content" id="pills-tabContent-tipo-asesor">
-                                        <div className="tab-pane fade show active" id="pills-registrarme-asesor" role="tabpanel" aria-labelledby="pills-registrarme-tab">
-                                            <div className="card-body p-5">
-                                                <h2 className="text-uppercase text-center mb-5">Crear una Cuenta</h2>
-                                                <form>
-
-                                                    <div className="form-outline mb-4">
-                                                        <input type="text" id="register-name-asesor" className="form-control form-control-lg" placeholder="Tu Nombre"/>
-                                                    </div>
-
-                                                    <div className="form-outline mb-4">
-                                                        <input type="email" id="register-email-asesor" className="form-control form-control-lg" placeholder="Tu Email"/>
-                                                    </div>
-
-                                                    <div className="form-outline mb-4">
-                                                        <input type="password" id="register-password-asesor" className="form-control form-control-lg" placeholder="Contraseña"/>
-                                                    </div>
-
-                                                    <div className="form-outline mb-4">
-                                                        <input type="password" id="register-rpassword-asesor" className="form-control form-control-lg" placeholder="Repite tu Contraseña"/>
-                                                    </div>
-
-                                                    <div className="d-flex justify-content-center">
-                                                        <button type="button" className="btn btn-success btn-block btn-lg gradient-custom-4 text-body">
-                                                            Registrate
-                                                        </button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                        <div className="tab-pane fade" id="pills-acceder-asesor" role="tabpanel" aria-labelledby="pills-acceder-tab">
+                                        <div className="tab-pane fade show active" id="pills-acceder-asesor" role="tabpanel" aria-labelledby="pills-acceder-tab">
                                             <div className="card-body p-5">
                                                 <h2 className="text-uppercase text-center mb-5">Iniciar Sesión</h2>
                                                 <form>
@@ -147,67 +138,6 @@ export const Sign = () => {
                                             </div>
                                         </div>
                                     </div>                                
-                                </div>
-                                <div className="tab-pane fade" id="pills-empresa" role="tabpanel" aria-labelledby="pills-empresa-tab">
-                                    <ul className="nav nav-pills" id="pills-tab-tipo-empresa" role="tablist">
-                                        <li className="nav-item" role="presentation">
-                                            <button className="nav-link active" id="pills-registrarme-tab-empresa" data-bs-toggle="pill" data-bs-target="#pills-registrarme-empresa" type="button" role="tab" aria-controls="pills-registrarme" aria-selected="true">Registrarme</button>
-                                        </li>
-                                        <li className="nav-item" role="presentation">
-                                            <button className="nav-link" id="pills-acceder-tab-empresa" data-bs-toggle="pill" data-bs-target="#pills-acceder-empresa" type="button" role="tab" aria-controls="pills-acceder" aria-selected="false">Acceder</button>
-                                        </li>
-                                    </ul>
-                                    <div className="tab-content" id="pills-tabContent-tipo-empresa">
-                                        <div className="tab-pane fade show active" id="pills-registrarme-empresa" role="tabpanel" aria-labelledby="pills-registrarme-tab">
-                                            <div className="card-body p-5">
-                                                <h2 className="text-uppercase text-center mb-5">Crear una Cuenta</h2>
-                                                <form>
-
-                                                    <div className="form-outline mb-4">
-                                                        <input type="text" id="register-name-empresa" className="form-control form-control-lg" placeholder="Tu Nombre"/>
-                                                    </div>
-
-                                                    <div className="form-outline mb-4">
-                                                        <input type="email" id="register-email-empresa" className="form-control form-control-lg" placeholder="Tu Email"/>
-                                                    </div>
-
-                                                    <div className="form-outline mb-4">
-                                                        <input type="password" id="register-password-empresa" className="form-control form-control-lg" placeholder="Contraseña"/>
-                                                    </div>
-
-                                                    <div className="form-outline mb-4">
-                                                        <input type="password" id="register-rpassword-empresa" className="form-control form-control-lg" placeholder="Repite tu Contraseña"/>
-                                                    </div>
-
-                                                    <div className="d-flex justify-content-center">
-                                                        <button type="button" className="btn btn-success btn-block btn-lg gradient-custom-4 text-body">
-                                                            Registrate
-                                                        </button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                        <div className="tab-pane fade" id="pills-acceder-empresa" role="tabpanel" aria-labelledby="pills-acceder-tab">
-                                            <div className="card-body p-5">
-                                                <h2 className="text-uppercase text-center mb-5">Iniciar Sesión</h2>
-                                                <form>
-                                                    <div className="form-outline mb-4">
-                                                        <input type="email" id="register-email-empresa" className="form-control form-control-lg" placeholder="Tu Email"/>
-                                                    </div>
-
-                                                    <div className="form-outline mb-4">
-                                                        <input type="password" id="register-password-empresa" className="form-control form-control-lg" placeholder="Contraseña"/>
-                                                    </div>
-
-                                                    <div className="d-flex justify-content-center">
-                                                        <button type="button" className="btn btn-success btn-block btn-lg gradient-custom-4 text-body">
-                                                            Iniciar Sesión
-                                                        </button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>

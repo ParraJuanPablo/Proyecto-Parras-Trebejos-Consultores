@@ -7,21 +7,81 @@ import img1 from "../../img/component/carousel/img-1.jpg";
 export const PerfilPostulante = () => {
 	const { store, actions } = useContext(Context);
 
+	const imagens = img1
+	const telefonos = "Ingrese un Teléfono en el botón editar."
+	const descripcions = "Ingrese una Descripcion en el botón editar."
+
+	if (store.user.foto && store.user.foto != null) {
+		imagens = store.user.foto
+	};
+
+	if (store.user.telefono && store.user.telefono != null) {
+		telefonos = store.user.telefono
+	};
+	
+	if (store.user.descripcion && store.user.descripcion != null) {
+		descripcions = store.user.descripcion
+	};
+
+	const [foto, setFoto] = useState("");
+    const [telefono, setTelefono] = useState("");
+    const [descripcion, setDescripcion] = useState("");
+
+    const handleSubmite = async (event) => {
+      event.preventDefault();
+      const response = await actions.editarPostulante({
+        foto: foto,
+        telefono: telefono,
+        descripcion: descripcion
+      });
+      if (response) {
+        console.log("Se editó correctamente");
+      } else {
+        alert("No se pudo editar");
+      }
+    };
+
+    const [cv, setCV] = useState("");
+
+    const handleSubmitcv = async (event) => {
+      event.preventDefault();
+      const response = await actions.subirCV({
+        cv: cv
+      });
+      if (response) {
+        console.log("Se subió el cv correctamente");
+      } else {
+        alert("No se pudo subir el cv");
+      }
+    };
+
+	useEffect(() => {
+		if (store.token === null) {
+		  navigate("/sign");
+		}
+	}, [store.token]);
+	
+	useEffect(() => {
+		actions.leerPostulante();
+	},[]);
+
 	return (
 		<div className="p-5 mb-4 bg-body-tertiary rounded-3">
 			<div className="row align-items-md-stretch">
 				<div className="col-md-3">
 					<div className="circular--landscape">
-						<img src={img1} alt="..."/>
+						<img src={imagens} alt="..."/>
 					</div>
 				</div>
 				<div className="col-md-9">
 					<div className="h-100 py-5 text-bg-dark rounded-3">
-						<h2>Nombre</h2>
+						<h2>{store.user.nombre}</h2>
 						<p>Telefono: </p>
+						<p>{telefonos} </p>
 						<p>Correo: </p>
+						<p>{store.user.correo}</p>
 						<p>Descripcion: </p>
-						<p>the background-color utility and add a `.text-*` color utility to mix up the jumbotron look. Then, mix and match with additional component themes and more.</p>
+						<p>{descripcions}</p>
 						<div>
 							<button type="button" className="btn btn-outline-secondary mx-2" data-bs-toggle="modal" data-bs-target="#edit-modal">
 								Editar
@@ -39,23 +99,23 @@ export const PerfilPostulante = () => {
 											</button>
 										</div>
 										<div className="modal-body">
-											<form>
+											<form onSubmit={handleSubmite}>
 												<div className="input-group mb-3">
 													<label className="input-group-text" for="edit-imagen">Foto</label>
-													<input type="file" className="form-control" id="edit-imagen"/>
+													<input onChange={(e) => setFoto(e.target.value)} type="file" className="form-control" id="edit-imagen"/>
 												</div>
 
 												<div className="form-outline mb-4">
-													<input type="tel" id="edit-tel" className="form-control form-control-lg" placeholder="Teléfono"/>
+													<input onChange={(e) => setTelefono(e.target.value)} type="tel" id="edit-tel" className="form-control form-control-lg" placeholder="Teléfono"/>
 												</div>
 												<div className="form-outline mb-4">
-													<textarea id="edit-description" className="form-control form-control-lg" aria-label="With textarea" placeholder="Descripción"></textarea>
+													<textarea onChange={(e) => setDescripcion(e.target.value)} id="edit-description" className="form-control form-control-lg" aria-label="With textarea" placeholder="Descripción"></textarea>
 												</div>
 											</form>
 										</div>
 										<div className="modal-footer">
 											<button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-											<button type="button" className="btn btn-primary">Guardar Cambios</button>
+											<button type="submit" className="btn btn-primary">Guardar Cambios</button>
 										</div>
 									</div>
 								</div>
@@ -70,16 +130,16 @@ export const PerfilPostulante = () => {
 											</button>
 										</div>
 										<div className="modal-body">
-											<form>
+											<form onSubmit={handleSubmitcv}>
 												<div className="input-group mb-3">
 													<label className="input-group-text" for="subir-CV">CV</label>
-													<input type="file" className="form-control" id="subir-CV"/>
+													<input onChange={(e) => setCV(e.target.value)} type="file" className="form-control" id="subir-CV"/>
 												</div>
 											</form>
 										</div>
 										<div className="modal-footer">
 											<button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-											<button type="button" className="btn btn-primary">Guardar Cambios</button>
+											<button type="submit" className="btn btn-primary">Guardar Cambios</button>
 										</div>
 									</div>
 								</div>

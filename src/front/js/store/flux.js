@@ -108,7 +108,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
-			  subirCV: async (data) => {
+			subirCV: async (data) => {
 				let store = getStore()
 				const opts = {
 				  method: "PUT",

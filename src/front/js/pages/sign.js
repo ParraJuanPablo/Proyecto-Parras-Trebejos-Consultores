@@ -38,7 +38,7 @@ export const Sign = () => {
     const [contraseñapa, setContraseñapa] = useState("");
 
     const handleSubmitpa = async (event) => {
-      event.paeventDefault();
+      event.preventDefault();
       const response = await actions.signup({
         correo: correopa,
         contraseña: contraseñapa
@@ -54,7 +54,7 @@ export const Sign = () => {
     const [contraseñasa, setContraseñasa] = useState("");
 
     const handleSubmitsa = async (event) => {
-      event.saeventDefault();
+      event.preventDefault();
       const response = await actions.signup({
         correo: correosa,
         contraseña: contraseñasa

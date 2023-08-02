@@ -17,13 +17,50 @@ export const Sign = () => {
 
     const handleSubmitpr = async (event) => {
       event.preventDefault();
-      const response1 = await actions.signup({
+      if (contraseñapr === rcontraseñapr) {          
+        const response = await actions.signup({
         nombre: nombrepr,
         correo: correopr,
         contraseña: contraseñapr
+        });
+        if (response) {
+        navigate("/");
+        } else {
+        alert("No se pudo crear la cuenta");
+        }
+      }
+      else {
+        alert("Las contraseñas deben ser iguales.");
+      }
+    };
+
+    const [correopa, setCorreopa] = useState("");
+    const [contraseñapa, setContraseñapa] = useState("");
+
+    const handleSubmitpa = async (event) => {
+      event.paeventDefault();
+      const response = await actions.signup({
+        correo: correopa,
+        contraseña: contraseñapa
       });
-      if (response1) {
-        navigate("/success");
+      if (response) {
+        navigate("/perfil/postulante");
+      } else {
+        alert("No se pudo iniciar sesión");
+      }
+    };
+
+    const [correosa, setCorreosa] = useState("");
+    const [contraseñasa, setContraseñasa] = useState("");
+
+    const handleSubmitsa = async (event) => {
+      event.saeventDefault();
+      const response = await actions.signup({
+        correo: correosa,
+        contraseña: contraseñasa
+      });
+      if (response) {
+        navigate("/blog/asesor");
       } else {
         alert("No se pudo iniciar sesión");
       }
@@ -62,26 +99,26 @@ export const Sign = () => {
                                         <div className="tab-pane fade show active" id="pills-registrarme-postulante" role="tabpanel" aria-labelledby="pills-registrarme-tab">
                                             <div className="card-body p-5">
                                                 <h2 className="text-uppercase text-center mb-5">Crear una Cuenta</h2>
-                                                <form>
+                                                <form onSubmit={handleSubmitpr}>
 
                                                     <div className="form-outline mb-4">
-                                                        <input type="text" id="register-name-postulante" className="form-control form-control-lg" placeholder="Tu Nombre"/>
+                                                        <input onChange={(e) => setNombrepr(e.target.value)} type="text" id="register-name-postulante" className="form-control form-control-lg" placeholder="Tu Nombre"/>
                                                     </div>
 
                                                     <div className="form-outline mb-4">
-                                                        <input type="email" id="register-email-postulante" className="form-control form-control-lg" placeholder="Tu Email"/>
+                                                        <input onChange={(e) => setCorreopr(e.target.value)} type="email" id="register-email-postulante" className="form-control form-control-lg" placeholder="Tu Email"/>
                                                     </div>
 
                                                     <div className="form-outline mb-4">
-                                                        <input type="password" id="register-password-postulante" className="form-control form-control-lg" placeholder="Contraseña"/>
+                                                        <input onChange={(e) => setContraseñapr(e.target.value)} type="password" id="register-password-postulante" className="form-control form-control-lg" placeholder="Contraseña"/>
                                                     </div>
 
                                                     <div className="form-outline mb-4">
-                                                        <input type="password" id="register-rpassword-postulante" className="form-control form-control-lg" placeholder="Repite tu Contraseña"/>
+                                                        <input onChange={(e) => setRContraseñapr(e.target.value)} type="password" id="register-rpassword-postulante" className="form-control form-control-lg" placeholder="Repite tu Contraseña"/>
                                                     </div>
 
                                                     <div className="d-flex justify-content-center">
-                                                        <button type="button" className="btn btn-success btn-block btn-lg gradient-custom-4 text-body">
+                                                        <button type="submit" className="btn btn-success btn-block btn-lg gradient-custom-4 text-body">
                                                             Registrate
                                                         </button>
                                                     </div>
@@ -91,17 +128,17 @@ export const Sign = () => {
                                         <div className="tab-pane fade" id="pills-acceder-postulante" role="tabpanel" aria-labelledby="pills-acceder-tab">
                                             <div className="card-body p-5">
                                                 <h2 className="text-uppercase text-center mb-5">Iniciar Sesión</h2>
-                                                <form>
+                                                <form onSubmit={handleSubmitpa}>
                                                     <div className="form-outline mb-4">
-                                                        <input type="email" id="register-email-postulante" className="form-control form-control-lg" placeholder="Tu Email"/>
+                                                        <input onChange={(e) => setCorreopa(e.target.value)} type="email" id="register-email-postulante" className="form-control form-control-lg" placeholder="Tu Email"/>
                                                     </div>
 
                                                     <div className="form-outline mb-4">
-                                                        <input type="password" id="register-password-postulante" className="form-control form-control-lg" placeholder="Contraseña"/>
+                                                        <input onChange={(e) => setContraseñapa(e.target.value)} type="password" id="register-password-postulante" className="form-control form-control-lg" placeholder="Contraseña"/>
                                                     </div>
 
                                                     <div className="d-flex justify-content-center">
-                                                        <button type="button" className="btn btn-success btn-block btn-lg gradient-custom-4 text-body">
+                                                        <button type="submit" className="btn btn-success btn-block btn-lg gradient-custom-4 text-body">
                                                             Iniciar Sesión
                                                         </button>
                                                     </div>
@@ -120,17 +157,17 @@ export const Sign = () => {
                                         <div className="tab-pane fade show active" id="pills-acceder-asesor" role="tabpanel" aria-labelledby="pills-acceder-tab">
                                             <div className="card-body p-5">
                                                 <h2 className="text-uppercase text-center mb-5">Iniciar Sesión</h2>
-                                                <form>
+                                                <form onSubmit={handleSubmitsa}>
                                                     <div className="form-outline mb-4">
-                                                        <input type="email" id="register-email-asesor" className="form-control form-control-lg" placeholder="Tu Email"/>
+                                                        <input onChange={(e) => setCorreosa(e.target.value)} type="email" id="register-email-asesor" className="form-control form-control-lg" placeholder="Tu Email"/>
                                                     </div>
 
                                                     <div className="form-outline mb-4">
-                                                        <input type="password" id="register-password-asesor" className="form-control form-control-lg" placeholder="Contraseña"/>
+                                                        <input onChange={(e) => setContraseñasa(e.target.value)} type="password" id="register-password-asesor" className="form-control form-control-lg" placeholder="Contraseña"/>
                                                     </div>
 
                                                     <div className="d-flex justify-content-center">
-                                                        <button type="button" className="btn btn-success btn-block btn-lg gradient-custom-4 text-body">
+                                                        <button type="submit" className="btn btn-success btn-block btn-lg gradient-custom-4 text-body">
                                                             Iniciar Sesión
                                                         </button>
                                                     </div>

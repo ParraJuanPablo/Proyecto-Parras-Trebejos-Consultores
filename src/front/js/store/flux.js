@@ -2,7 +2,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			token: sessionStorage.getItem("token") || null,
-			user: {},	  
+			user: {},
+			tips: [],
 			message: null,
 			demo: [
 				{
@@ -196,7 +197,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
-			signupTip: async (data) => {
+			crearTip: async (data) => {
 				console.log(data);
 				const opts = {
 				  method: "POST",

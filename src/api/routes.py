@@ -11,6 +11,26 @@ from flask_jwt_extended import jwt_required
 
 api = Blueprint('api', __name__)
 
+@api.route('/login', methods=['POST'])
+def crear_token():
+    correo = request.json.get("correo", None)
+    contraseña = request.json.get("contraseña", None)
+    
+    if correo is None:
+        return jsonify({"msg": "No has ingresado correo"}), 400
+    if contraseña is None:
+        return jsonify({"msg": "no has ingresado contraseña"}), 400
+
+    postulante = Postulante.query.filter_by(correo=correo, contraseña=contraseña).first()
+    if postulante is None:
+        # the postulante was not found on the database
+        return jsonify({"msg": "Invalid postulantename or contraseña"}), 401
+    else:
+        print(postulante)
+        # create a new token with the postulante id inside
+        access_token = create_access_token(identity=postulante.id)
+        return jsonify({ "token": access_token, "postulante_id": postulante.id }), 200
+
 @api.route('/postulante', methods=['GET'])
 @jwt_required()
 def buscar_postulante():

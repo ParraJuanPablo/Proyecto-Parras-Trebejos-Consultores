@@ -18,7 +18,7 @@ export const Sign = () => {
     const handleSubmitpr = async (event) => {
       event.preventDefault();
       if (contraseñapr === rcontraseñapr) {          
-        const response = await actions.signup({
+        const response = await actions.signupPostulante({
         nombre: nombrepr,
         correo: correopr,
         contraseña: contraseñapr
@@ -39,7 +39,7 @@ export const Sign = () => {
 
     const handleSubmitpa = async (event) => {
       event.preventDefault();
-      const response = await actions.signup({
+      const response = await actions.loginPostulante({
         correo: correopa,
         contraseña: contraseñapa
       });
@@ -55,7 +55,7 @@ export const Sign = () => {
 
     const handleSubmitsa = async (event) => {
       event.preventDefault();
-      const response = await actions.signup({
+      const response = await actions.loginAsesor({
         correo: correosa,
         contraseña: contraseñasa
       });
@@ -130,11 +130,11 @@ export const Sign = () => {
                                                 <h2 className="text-uppercase text-center mb-5">Iniciar Sesión</h2>
                                                 <form onSubmit={handleSubmitpa}>
                                                     <div className="form-outline mb-4">
-                                                        <input onChange={(e) => setCorreopa(e.target.value)} type="email" id="register-email-postulante" className="form-control form-control-lg" placeholder="Tu Email"/>
+                                                        <input onChange={(e) => setCorreopa(e.target.value)} type="email" id="login-email-postulante" className="form-control form-control-lg" placeholder="Tu Email"/>
                                                     </div>
 
                                                     <div className="form-outline mb-4">
-                                                        <input onChange={(e) => setContraseñapa(e.target.value)} type="password" id="register-password-postulante" className="form-control form-control-lg" placeholder="Contraseña"/>
+                                                        <input onChange={(e) => setContraseñapa(e.target.value)} type="password" id="login-password-postulante" className="form-control form-control-lg" placeholder="Contraseña"/>
                                                     </div>
 
                                                     <div className="d-flex justify-content-center">

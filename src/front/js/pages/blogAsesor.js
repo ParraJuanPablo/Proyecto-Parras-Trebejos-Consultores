@@ -10,7 +10,16 @@ export const BlogAsesor = () => {
 
 	return (
 		<div className="text-center mt-5">
-			<CartaBlogAsesor />
+			{store.tips.map((item, index) => {
+					return (
+						<CartaBlogAsesor 
+							key={index}
+							className="list-group-item d-flex justify-content-between"
+							style={{ background: item.background }}
+
+						/>
+					);
+			})}
 		</div>
 	);
 };

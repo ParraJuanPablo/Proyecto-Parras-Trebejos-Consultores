@@ -8,7 +8,7 @@ import img3 from "../../img/component/carousel/img-3.jpg";
 import "../../styles/component/cartaBlogAsesor.css";
 
 
-export const CartaBlogAsesor = () => {
+export const CartaBlogAsesor = ({titulo, fecha, foto, }) => {
 	return (
         <div className="w-100 py-3 d-flex flex-column align-items-center">
             <div className="card w-50 my-2">
@@ -56,7 +56,7 @@ export const CartaBlogAsesor = () => {
                                 </form>
                             </div>
                             <div className="modal-footer">
-                                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                <button type="button" clanpmssName="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                                 <button type="button" className="btn btn-primary">Guardar Cambios</button>
                             </div>
                         </div>

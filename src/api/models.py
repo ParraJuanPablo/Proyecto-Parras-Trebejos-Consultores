@@ -1,12 +1,18 @@
 from flask_sqlalchemy import SQLAlchemy
+import enum
 
 db = SQLAlchemy()
 
-class Postulante(db.Model):
+class Rol(enum.Enum):
+    postulante = "postulante"
+    asesor = "asesor"
+
+class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    rol = db.Column(db.Enum(Rol), unique=False, nullable=False)
     nombre = db.Column(db.String(120), unique=False, nullable=False)
     correo = db.Column(db.String(120), unique=True, nullable=False)
-    contraseña = db.Column(db.String(80), unique=False, nullable=False)
+    contrasena = db.Column(db.String(80), unique=False, nullable=False)
     telefono = db.Column(db.Integer, unique=False, nullable=True)
     descripcion = db.Column(db.String(1000), unique=False, nullable=True)
     foto = db.Column(db.String(80), unique=False, nullable=True)
@@ -26,27 +32,10 @@ class Postulante(db.Model):
             "cv": self.cv,
             # do not serialize the password, its a security breach
         }
-    
-class Asesor(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    nombre = db.Column(db.String(120), unique=False, nullable=False)
-    correo = db.Column(db.String(120), unique=True, nullable=False)
-    contraseña = db.Column(db.String(80), unique=False, nullable=False)
-
-    def __repr__(self):
-        return f'<User {self.email}>'
-
-    def serialize(self):
-        return {
-            "id": self.id,
-            "nombre": self.nombre,
-            "correo": self.correo,
-            # do not serialize the password, its a security breach
-        }
 
 class Tip(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    asesor_id = db.Column(db.Integer, db.ForeignKey(Asesor.id), unique=False, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey(User.id), unique=False, nullable=False)
     titulo = db.Column(db.String(120), unique=False, nullable=False)
     fecha = db.Column(db.String(80), unique=False, nullable=False)
     foto = db.Column(db.String(80), unique=False, nullable=False)
@@ -58,7 +47,7 @@ class Tip(db.Model):
     def serialize(self):
         return {
             "id": self.id,
-            "asesor_id": self.asesor_id,
+            "user_id": self.user_id,
             "titulo": self.titulo,
             "fecha": self.fecha,
             "foto": self.foto,

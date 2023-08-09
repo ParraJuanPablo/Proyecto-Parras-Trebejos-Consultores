@@ -3,7 +3,7 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 """
 import os
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, Postulante, Asesor, Tip
+from api.models import db, User, Tip
 from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
@@ -14,17 +14,17 @@ api = Blueprint('api', __name__)
 @api.route('/login', methods=['POST'])
 def crear_token():
     correo = request.json.get("correo", None)
-    contraseña = request.json.get("contraseña", None)
+    contrasena = request.json.get("contrasena", None)
     
     if correo is None:
         return jsonify({"msg": "No has ingresado correo"}), 400
-    if contraseña is None:
-        return jsonify({"msg": "no has ingresado contraseña"}), 400
+    if contrasena is None:
+        return jsonify({"msg": "no has ingresado contrasena"}), 400
 
-    postulante = Postulante.query.filter_by(correo=correo, contraseña=contraseña).first()
+    postulante = User.query.filter_by(correo=correo, contrasena=contrasena).first()
     if postulante is None:
         # the postulante was not found on the database
-        return jsonify({"msg": "Invalid postulantename or contraseña"}), 401
+        return jsonify({"msg": "Invalid postulantename or contrasena"}), 401
     else:
         print(postulante)
         # create a new token with the postulante id inside
@@ -34,7 +34,7 @@ def crear_token():
 @api.route('/postulante', methods=['GET'])
 @jwt_required()
 def buscar_postulante():
-    postulante = Postulante.query.get(get_jwt_identity())
+    postulante = User.query.get(get_jwt_identity())
     return jsonify(postulante.serialize())
 
 @api.route('/postulante', methods=['POST'])
@@ -42,14 +42,14 @@ def crear_postulante():
     print(request.json)
     nombre = request.json.get("nombre", None)
     correo = request.json.get("correo", None)
-    contraseña = request.json.get("contraseña", None)
+    contrasena = request.json.get("contrasena", None)
 
-    if nombre is None or correo is None or contraseña is None: 
+    if nombre is None or correo is None or contrasena is None: 
         return jsonify({"msg": "No enough data"}), 400
 
     else:
         try: 
-            postulante=Postulante(nombre=nombre, correo=correo, contraseña=contraseña)
+            postulante=User(rol="postulante", nombre=nombre, correo=correo, contrasena=contrasena)
             db.session.add(postulante)
             db.session.commit()
             return jsonify({"msg": "Postulante creado"}), 200
@@ -60,7 +60,7 @@ def crear_postulante():
 @api.route('/postulante', methods=['PUT'])
 @jwt_required()
 def editar_postulante():
-    postulante = Postulante.query.get(get_jwt_identity())
+    postulante = User.query.get(get_jwt_identity())
     postulante.foto = request.json.get("foto", postulante.foto)
     postulante.telefono = request.json.get("telefono", postulante.telefono)
     postulante.descripcion = request.json.get("descripcion", postulante.descripcion)
@@ -78,7 +78,7 @@ def editar_postulante():
 @api.route('/cv', methods=['PUT'])
 @jwt_required()
 def subir_cv():
-    postulante = Postulante.query.get(get_jwt_identity())
+    postulante = User.query.get(get_jwt_identity())
     postulante.cv = request.json.get("cv", postulante.cv)
 
     if postulante.cv is None:
@@ -94,7 +94,7 @@ def subir_cv():
 @api.route('/asesor', methods=['GET'])
 @jwt_required()
 def buscar_asesor():
-    asesor = Asesor.query.get(get_jwt_identity())
+    asesor = User.query.get(get_jwt_identity())
     return jsonify(asesor.serialize())
 
 @api.route('/asesor', methods=['POST'])
@@ -102,15 +102,15 @@ def crear_asesor():
     print(request.json)
     nombre = request.json.get("nombre", None)
     correo = request.json.get("correo", None)
-    contraseña = request.json.get("contraseña", None)
+    contrasena = request.json.get("contrasena", None)
 
-    if nombre is None or correo is None or contraseña is None: 
+    if nombre is None or correo is None or contrasena is None: 
         return jsonify({"msg": "No enough data"}), 400
 
     else:
         try: 
-            postulante=Postulante(nombre=nombre, correo=correo, contraseña=contraseña)
-            db.session.add(postulante)
+            asesor=User(rol="asesor", nombre=nombre, correo=correo, contrasena=contrasena)
+            db.session.add(asesor)
             db.session.commit()
             return jsonify({"msg": "Asesor creado"}), 200
             
